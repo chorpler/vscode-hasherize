@@ -4,8 +4,10 @@ import {
   ExtensionContext,
   Range,
   TextEditor,
+  TextEditorEdit,
   Selection,
 } from 'vscode';
+import { Log } from "./logger";
 import { HashCommand } from './hash-command';
 import { Base64EncodeCommand } from './base64-encode-command';
 import { Base64DecodeCommand } from './base64-decode-command';
@@ -17,113 +19,122 @@ import { UuidV1Command } from './uuid-v1-command';
 import { UuidV4Command } from './uuid-v4-command';
 import { HtmlEntityEncodeCommand } from './html-entity-encode-command';
 import { HtmlEntityDecodeCommand } from './html-entity-decode-command';
-import { isNullOrUndefined } from 'util';
 
 export function activate(context: ExtensionContext) {
+  Log.l('hasherize: activate');
   context.subscriptions.push(
-    commands.registerCommand('hasherize.md5', () => {
+    commands.registerCommand('hasherize.md5', async () => {
+      Log.l('hasherize: md5 run');
       let editor = window.activeTextEditor;
       if (editor === null || editor === undefined) { return; }
       let selecteds = getSelectedTextAndRanges(editor);
       for(let selected of selecteds) {
         let md5 = new HashCommand('md5');
-        replaceText(editor, selected.range, md5.run(selected.text));
+        await replaceText(editor, selected.range, md5.run(selected.text));
       }
     })
   );
 
   context.subscriptions.push(
-    commands.registerCommand('hasherize.sha1', () => {
+    commands.registerCommand('hasherize.sha1', async () => {
+      Log.l('hasherize: sha1 run');
       let editor = window.activeTextEditor;
       if (editor === null || editor === undefined) { return; }
       let selecteds = getSelectedTextAndRanges(editor);
       for(let selected of selecteds) {
         let sha1 = new HashCommand('sha1');
-        replaceText(editor, selected.range, sha1.run(selected.text));
+        await replaceText(editor, selected.range, sha1.run(selected.text));
       }
     })
   );
 
   context.subscriptions.push(
-    commands.registerCommand('hasherize.sha256', () => {
+    commands.registerCommand('hasherize.sha256', async () => {
+      Log.l('hasherize: sha256 run');
       let editor = window.activeTextEditor;
       if (editor === null || editor === undefined) { return; }
       let selecteds = getSelectedTextAndRanges(editor);
       for(let selected of selecteds) {
         let sha1 = new HashCommand('sha256');
-        replaceText(editor, selected.range, sha1.run(selected.text));
+        await replaceText(editor, selected.range, sha1.run(selected.text));
       }
     })
   );
 
   context.subscriptions.push(
-    commands.registerCommand('hasherize.sha512', () => {
+    commands.registerCommand('hasherize.sha512', async () => {
+      Log.l('hasherize: sha512 run');
       let editor = window.activeTextEditor;
       if (editor === null || editor === undefined) { return; }
       let selecteds = getSelectedTextAndRanges(editor);
       for(let selected of selecteds) {
         let sha1 = new HashCommand('sha512');
-        replaceText(editor, selected.range, sha1.run(selected.text));
+        await replaceText(editor, selected.range, sha1.run(selected.text));
       }
     })
   );
 
   context.subscriptions.push(
-    commands.registerCommand('hasherize.base64Encode', () => {
+    commands.registerCommand('hasherize.base64Encode', async () => {
+      Log.l('hasherize: base64Encode run');
       let editor = window.activeTextEditor;
       if (editor === null || editor === undefined) { return; }
       let selecteds = getSelectedTextAndRanges(editor);
       for(let selected of selecteds) {
         let base64Encode = new Base64EncodeCommand();
-        replaceText(editor, selected.range, base64Encode.run(selected.text));
+        await replaceText(editor, selected.range, base64Encode.run(selected.text));
       }
     })
   );
 
   context.subscriptions.push(
-    commands.registerCommand('hasherize.base64Decode', () => {
+    commands.registerCommand('hasherize.base64Decode', async () => {
+      Log.l('hasherize: base64Decode run');
       let editor = window.activeTextEditor;
       if (editor === null || editor === undefined) { return; }
       let selecteds = getSelectedTextAndRanges(editor);
       for(let selected of selecteds) {
         let base64Decode = new Base64DecodeCommand();
-        replaceText(editor, selected.range, base64Decode.run(selected.text));
+        await replaceText(editor, selected.range, base64Decode.run(selected.text));
       }
     })
   );
 
   context.subscriptions.push(
-    commands.registerCommand('hasherize.base64UrlEncode', () => {
+    commands.registerCommand('hasherize.base64UrlEncode', async () => {
+      Log.l('hasherize: base64UrlEncode run');
       let editor = window.activeTextEditor;
       if (editor === null || editor === undefined) { return; }
       let selecteds = getSelectedTextAndRanges(editor);
       for(let selected of selecteds) {
         let base64Encode = new Base64UrlEncodeCommand();
-        replaceText(editor, selected.range, base64Encode.run(selected.text));
+        await replaceText(editor, selected.range, base64Encode.run(selected.text));
       }
     })
   );
 
   context.subscriptions.push(
-    commands.registerCommand('hasherize.base64UrlDecode', () => {
+    commands.registerCommand('hasherize.base64UrlDecode', async () => {
+      Log.l('hasherize: base64UrlDecode run');
       let editor = window.activeTextEditor;
       if (editor === null || editor === undefined) { return; }
       let selecteds = getSelectedTextAndRanges(editor);
       for(let selected of selecteds) {
         let base64Decode = new Base64UrlDecodeCommand();
-        replaceText(editor, selected.range, base64Decode.run(selected.text));
+        await replaceText(editor, selected.range, base64Decode.run(selected.text));
       }
     })
   );
 
   context.subscriptions.push(
-    commands.registerCommand('hasherize.uriEncodeComponent', () => {
+    commands.registerCommand('hasherize.uriEncodeComponent', async () => {
+      Log.l('hasherize: uriEncodeComponent run');
       let editor = window.activeTextEditor;
       if (editor === null || editor === undefined) { return; }
       let selecteds = getSelectedTextAndRanges(editor);
       let uriEncodeComponent = new UriEncodeComponentCommand();
       for(let selected of selecteds) {
-        replaceText(
+        await replaceText(
           editor,
           selected.range,
           uriEncodeComponent.run(selected.text)
@@ -133,13 +144,14 @@ export function activate(context: ExtensionContext) {
   );
 
   context.subscriptions.push(
-    commands.registerCommand('hasherize.uriDecodeComponent', () => {
+    commands.registerCommand('hasherize.uriDecodeComponent', async () => {
+      Log.l('hasherize: uriDecodeComponent run');
       let editor = window.activeTextEditor;
       if (editor === null || editor === undefined) { return; }
       let selecteds = getSelectedTextAndRanges(editor);
       for(let selected of selecteds) {
         let uriDecodeComponent = new UriDecodeComponentCommand();
-        replaceText(
+        await replaceText(
           editor,
           selected.range,
           uriDecodeComponent.run(selected.text)
@@ -149,37 +161,40 @@ export function activate(context: ExtensionContext) {
   );
 
   context.subscriptions.push(
-    commands.registerCommand('hasherize.uuidV1', () => {
+    commands.registerCommand('hasherize.uuidV1', async () => {
+      Log.l('hasherize: uuidV1 run');
       let editor = window.activeTextEditor;
       if (editor === null || editor === undefined) { return; }
       let selecteds = getSelectedTextAndRanges(editor);
       for(let selected of selecteds) {
         let uuidV1Command = new UuidV1Command();
-        insertText(editor, uuidV1Command.run());
+        await insertText(editor, selected.range, uuidV1Command.run());
       }
     })
   );
 
   context.subscriptions.push(
-    commands.registerCommand('hasherize.uuidV4', () => {
+    commands.registerCommand('hasherize.uuidV4', async () => {
+      Log.l('hasherize: uuidV4 run');
       let editor = window.activeTextEditor;
       if (editor === null || editor === undefined) { return; }
       let selecteds = getSelectedTextAndRanges(editor);
       for(let selected of selecteds) {
         let uuidV4Command = new UuidV4Command();
-        insertText(editor, uuidV4Command.run());
+        await insertText(editor, selected.range, uuidV4Command.run());
       }
     })
   );
 
   context.subscriptions.push(
-    commands.registerCommand('hasherize.htmlEntityEncodeComponent', () => {
+    commands.registerCommand('hasherize.htmlEntityEncodeComponent', async () => {
+      Log.l('hasherize: htmlEntityEncodeComponent run');
       let editor = window.activeTextEditor;
       if (editor === null || editor === undefined) { return; }
       let selecteds = getSelectedTextAndRanges(editor);
       for(let selected of selecteds) {
         let htmlEntityEncodeComponent = new HtmlEntityEncodeCommand();
-        replaceText(
+        await replaceText(
           editor,
           selected.range,
           htmlEntityEncodeComponent.run(selected.text)
@@ -189,13 +204,14 @@ export function activate(context: ExtensionContext) {
   );
 
   context.subscriptions.push(
-    commands.registerCommand('hasherize.htmlEntityDecodeComponent', () => {
+    commands.registerCommand('hasherize.htmlEntityDecodeComponent', async () => {
+      Log.l('hasherize: htmlEntityDecodeComponent run');
       let editor = window.activeTextEditor;
       if (editor === null || editor === undefined) { return; }
       let selecteds = getSelectedTextAndRanges(editor);
       for(let selected of selecteds) {
         let htmlEntityDecodeComponent = new HtmlEntityDecodeCommand();
-        replaceText(
+        await replaceText(
           editor,
           selected.range,
           htmlEntityDecodeComponent.run(selected.text)
@@ -230,7 +246,7 @@ function getSelectedTextAndRanges(editor: TextEditor): TextAndRanges {
       if(r != null) {
         range = r;
       } else {
-        continue;
+        range = new Range(selection.start, selection.end);
       }
     } else {
       range = new Range(selection.start, selection.end);
@@ -264,21 +280,48 @@ function hasSelectedText(selection: Selection) {
  * @param {Range} range
  * @param {string} newText - new text to replace
  */
-function replaceText(editor: TextEditor, range: any, newText: string) {
-  editor.edit(function (editBuilder) {
+async function replaceText(editor: TextEditor, range: Range, newText: string) {
+  return editor.edit((editBuilder: TextEditorEdit) => {
+    Log.l(`replaceText: ${range.start.line},${range.start.character} - ${range.end.line},${range.end.character} : ${newText}`);
     editBuilder.replace(range, newText);
-  });
+  }).then(success => {
+    if (success) {
+      Log.l('replaceText: success');
+      // editor.selection = new Selection(pos1, pos1);
+    } else {
+      Log.l('replaceText: success false, whaaaaaaat');
+    }
+}).then(undefined, err => {
+  Log.l('replaceText: error');
+  Log.l(err);
+    // console.error(err);
+});
 }
 
 /**
  * Insert text in editor
  */
-function insertText(editor: TextEditor, text: string) {
-  let selections = editor.selections;
-  for(let selection of selections) {
-    const position = selection.active;
-    editor.edit(function (editBuilder) {
-      editBuilder.insert(position, text);
-    });
-  }
+async function insertText(editor: TextEditor, range: Range, text: string) {
+  // let selections = editor.selections;
+  // for(let selection of selections) {
+  //   const position = selection.active;
+  //   editor.edit(function (editBuilder) {
+  //     editBuilder.insert(position, text);
+  //   });
+  // }
+  return editor.edit((editBuilder: TextEditorEdit) => {
+    Log.l(`insertText: ${text}`);
+    let pos = range.start;
+    editBuilder.insert(pos, text);
+  }).then(success => {
+    if (success) {
+      Log.l('insertText: success');
+      // editor.selection = new Selection(pos1, pos1);
+    } else {
+      Log.l('insertText: success false, whaaaaaaat');
+    }
+  }).then(undefined, err => {
+    Log.l('insertText: error');
+    Log.l(err);
+  });
 }
