@@ -27,9 +27,10 @@
     }
   },
   "categories": [
+    "Snippets",
     "Other"
   ],
-  "main": "./out/hasherize.js",
+  "main": "./dist/hasherize.js",
   "contributes": {
     "commands": [
       {
@@ -91,10 +92,22 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
+    "001vscode:prepublish": "npm run compile",
+    "compile001": "tsc -p ./",
+    "compile": "npm run check-types && node esbuild.js",
+    "check-types": "tsc -p ./ --noEmit",
+    "dev": "npm run check-types && node esbuild.js",
+    "dev:watch": "npm run check-types && node esbuild.js --watch",
     "lint": "eslint src --ext ts",
-    "watch": "tsc -watch -p ./",
+    "watch001": "tsc -watch -p ./",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "002vscode:prepublish": "npm run package",
+    "package": "npm run check-types && node esbuild.js --production && npm run package:vsce",
+    "package:vsce": "vsce package",
+    "package:dev": "npm run check-types && node esbuild.js && npm run package:vsce",
+    "esbuild2": "esbuild --bundle src/hasherize.ts --platform=node --target=node16 --outfile=out/hasherize.js --external:crypto-js",
     "pretest": "npm run compile && npm run lint",
     "test": "node ./out/test/runTest.js"
   },
@@ -106,13 +119,19 @@
     "@types/vscode": "^1.99.1",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.3.2",
+    "base64url": "^3.0.1",
+    "crypto-js": "^4.2.0",
+    "esbuild": "^0.25.2",
     "eslint": "^7.19.0",
     "glob": "^7.1.6",
+    "he": "^1.2.0",
     "mocha": "^8.3.0",
     "typescript": "^4.1.5",
-    "@vscode/test-electron": "^2.5.2"
+    "uuid": "^8.3.2"
   },
-  "dependencies": {
+  "orgdependencies": {
     "base64url": "^3.0.1",
     "crypto-js": "^4.2.0",
     "he": "^1.2.0",
