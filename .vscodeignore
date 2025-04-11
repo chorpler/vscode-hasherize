@@ -1,5 +1,6 @@
 .vscode/**
 .vscode-test/**
+.history/**
 out/test/**
 src/**
 .gitignore
@@ -8,3 +9,4 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 **/*.map
 **/*.ts
+.tool-versions
