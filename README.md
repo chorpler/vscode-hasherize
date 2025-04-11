@@ -1,6 +1,8 @@
-# Visual Studio Code Hasher Extended
+# Visual Studio Code Hasherize
 
-The code is forked from https://github.com/deerawan/vscode-hasher.
+### vscode-hasherize now supports multiple cursors!
+
+The code is forked from https://github.com/espresso3389/vscode-hasher.
 
 Generate various hash (md5, sha1), UUID, HTML entity conversion and many more. Features:
 - MD5

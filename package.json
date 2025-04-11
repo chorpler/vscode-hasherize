@@ -1,25 +1,25 @@
 {
-  "name": "vscode-hasher-extended",
-  "displayName": "vscode-hasher-extended",
-  "description": "Generate various hash (MD5, SHA-128, SHA-256, SHA-512), HTML entity conversion and many more",
-  "version": "1.1.2",
-  "publisher": "espresso3389",
-  "icon": "images/hasher.png",
+  "name": "vscode-hasherize",
+  "displayName": "Hasherize",
+  "description": "Generate various hashes (MD5, SHA-128, SHA-256, SHA-512), HTML entity conversion and many more",
+  "version": "1.2.0",
+  "publisher": "chorpler",
+  "icon": "images/hasherize.png",
   "galleryBanner": {
     "color": "#283593",
     "theme": "dark"
   },
   "engines": {
-    "vscode": "^1.53.0"
+    "vscode": "^1.99.1"
   },
   "bugs": {
-    "url": "https://github.com/espresso3389/vscode-hasher/issues",
-    "email": "espresso3389@gmail.com"
+    "url": "https://github.com/chorpler/vscode-hasherize/issues",
+    "email": "chorpler@gmail.com"
   },
-  "homepage": "https://github.com/espresso3389/vscode-hasher",
+  "homepage": "https://github.com/chorpler/vscode-hasherize",
   "repository": {
     "type": "git",
-    "url": "https://github.com/espresso3389/vscode-hasher"
+    "url": "https://github.com/chorpler/vscode-hasherize"
   },
   "capabilities": {
     "untrustedWorkspaces": {
@@ -29,79 +29,63 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onCommand:extension.md5",
-    "onCommand:extension.sha1",
-    "onCommand:extension.sha256",
-    "onCommand:extension.sha512",
-    "onCommand:extension.base64Encode",
-    "onCommand:extension.base64Decode",
-    "onCommand:extension.base64urlEncode",
-    "onCommand:extension.base64urlDecode",
-    "onCommand:extension.uriEncodeComponent",
-    "onCommand:extension.uriDecodeComponent",
-    "onCommand:extension.uuidV1",
-    "onCommand:extension.uuidV4",
-    "onCommand:extension.htmlEntityEncodeComponent",
-    "onCommand:extension.htmlEntityDecodeComponent"
-  ],
-  "main": "./out/extension.js",
+  "main": "./out/hasherize.js",
   "contributes": {
     "commands": [
       {
-        "command": "extension.md5",
+        "command": "hasherize.md5",
         "title": "Hasher: MD5"
       },
       {
-        "command": "extension.sha1",
+        "command": "hasherize.sha1",
         "title": "Hasher: SHA-128"
       },
       {
-        "command": "extension.sha256",
+        "command": "hasherize.sha256",
         "title": "Hasher: SHA-256"
       },
       {
-        "command": "extension.sha512",
+        "command": "hasherize.sha512",
         "title": "Hasher: SHA-512"
       },
       {
-        "command": "extension.base64Encode",
+        "command": "hasherize.base64Encode",
         "title": "Hasher: Base64 Encode"
       },
       {
-        "command": "extension.base64Decode",
+        "command": "hasherize.base64Decode",
         "title": "Hasher: Base64 Decode"
       },
       {
-        "command": "extension.base64UrlEncode",
+        "command": "hasherize.base64UrlEncode",
         "title": "Hasher: base64url Encode"
       },
       {
-        "command": "extension.base64UrlDecode",
+        "command": "hasherize.base64UrlDecode",
         "title": "Hasher: base64url Decode"
       },
       {
-        "command": "extension.uriEncodeComponent",
+        "command": "hasherize.uriEncodeComponent",
         "title": "Hasher: URI Encode Component"
       },
       {
-        "command": "extension.uriDecodeComponent",
+        "command": "hasherize.uriDecodeComponent",
         "title": "Hasher: URI Decode Component"
       },
       {
-        "command": "extension.uuidV1",
+        "command": "hasherize.uuidV1",
         "title": "Hasher: UUID v1"
       },
       {
-        "command": "extension.uuidV4",
+        "command": "hasherize.uuidV4",
         "title": "Hasher: UUID v4"
       },
       {
-        "command": "extension.htmlEntityEncodeComponent",
+        "command": "hasherize.htmlEntityEncodeComponent",
         "title": "Hasher: HTML Entity Encode"
       },
       {
-        "command": "extension.htmlEntityDecodeComponent",
+        "command": "hasherize.htmlEntityDecodeComponent",
         "title": "Hasher: HTML Entity Decode"
       }
     ]
@@ -115,22 +99,22 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/crypto-js": "^4.0.1",
+    "@types/crypto-js": "^4.2.2",
     "@types/glob": "^7.1.3",
     "@types/mocha": "^8.2.0",
-    "@types/node": "^14.14.27",
-    "@types/vscode": "^1.53.0",
-    "eslint": "^7.19.0",
-    "@typescript-eslint/parser": "^4.15.0",
+    "@types/node": "^22.14.0",
+    "@types/vscode": "^1.99.1",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
+    "@typescript-eslint/parser": "^4.15.0",
+    "eslint": "^7.19.0",
     "glob": "^7.1.6",
     "mocha": "^8.3.0",
     "typescript": "^4.1.5",
-    "vscode-test": "^1.5.0"
+    "@vscode/test-electron": "^2.5.2"
   },
   "dependencies": {
     "base64url": "^3.0.1",
-    "crypto-js": "^4.0.0",
+    "crypto-js": "^4.2.0",
     "he": "^1.2.0",
     "uuid": "^8.3.2"
   }
