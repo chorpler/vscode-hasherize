@@ -4,3 +4,6 @@ typings
 coverage
 .vscode
 .history
+
+// If using ESBuild to bundle
+dist
